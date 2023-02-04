@@ -24,6 +24,10 @@ export class ContactService {
     return this.http.delete('/contact-manager/api/contacts/' + contactId);
   }
 
+  getOneContact(contactId: string): Observable<Contact> {
+    return this.http.get<Contact>('/contact-manager/api/contacts/' + contactId);
+  }
+
   updateContact(contactId: string | number, changes: Partial<Contact>): Observable<any> {
     return this.http.put('/contact-manager/api/contacts/' + contactId, changes);
   }
