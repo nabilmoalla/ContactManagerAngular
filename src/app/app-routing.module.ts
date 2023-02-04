@@ -13,13 +13,16 @@ const routes = [
     }
   },
   {path: 'create-contact', component: CreateContactComponent},
-  {path: '**', redirectTo: 'courses'}
+  {path: '**', redirectTo: 'contacts'}
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     RouterModule.forRoot(routes),
+  ],
+  providers: [
+    ContactResolver
   ],
   exports: [RouterModule]
 })

@@ -17,7 +17,7 @@ export const contactReducer = createReducer(
   initialState,
 
   on(contactActionTypes.contactsLoaded, (state, action) => {
-    return adapter.addMany(
+    return adapter.setAll(
       action.contacts,
       {...state, contactsLoaded: true}
     );

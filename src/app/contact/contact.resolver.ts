@@ -16,6 +16,7 @@ export class ContactResolver implements Resolve<Observable<any>> {
       .pipe(
         select(areContactsLoaded),
         tap((contactsLoaded) => {
+          console.log('contactLoaded ', contactsLoaded);
           if (!contactsLoaded) {
             this.store.dispatch(loadContacts());
           }

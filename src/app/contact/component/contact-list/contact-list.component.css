@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+.example-button-row {
+  display: flex;
+  max-width: 600px;
+}
+
+.example-button-row {
+  margin: 8px 8px 8px 0;
+}
+
+.button-row {
+  display: flex;
+}
+

@@ -18,12 +18,12 @@ export const createContact = createAction(
 
 export const deleteContact = createAction(
   '[Contacts List Operations] Delete Contact',
-  props<{contactId: string}>()
+  props<{contactId: number}>()
 );
 
 export const getOneContact = createAction(
   '[Contacts List Operations] get One Contact',
-  props<{contactId: string}>()
+  props<{contactId: number}>()
 );
 
 export const updateContact = createAction(
