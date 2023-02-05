@@ -35,3 +35,19 @@ tr.element-row:hover {
   background: whitesmoke;
 }
 
+.list-header {
+  display: flex;
+}
+.filter-header{
+  width: 90%;
+}
+.add-button-header{
+  width: 10%;
+}
+
+.button-header {
+  height: 54px;
+  margin-left: 10px;
+}
+
+

@@ -13,6 +13,8 @@ import {Update} from "@ngrx/entity";
 import {DatePipe} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {ContactDetailsComponent} from "../contact-details/contact-details.component";
+import {CreateUpdateDialogComponent} from "../create-update-dialog/create-update-dialog.component";
 
 @Component({
   selector: 'app-contact-list',
@@ -62,9 +64,13 @@ export class ContactListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showUpdateForm(contact: Contact) {
-    this.contactToBeUpdated = {...contact};
-    this.isUpdateActivated = true;
+  openUpdateDialog(event: MouseEvent, contact: Contact) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.dialog.open(CreateUpdateDialogComponent, {
+      width: '450px',
+      data: contact
+    });
   }
 
   updateContact(updateForm: any) {
@@ -87,7 +93,9 @@ export class ContactListComponent implements OnInit, AfterViewInit {
     this.store.dispatch(contactActionTypes.deleteContact({contactId}));
   }
 
-  openDeleteDialog(contactId : number) {
+  openDeleteDialog(event: MouseEvent, contactId : number) {
+    event.preventDefault();
+    event.stopPropagation();
     const dialog = this.dialog.open(ConfirmDialogComponent, {
       width: '450px'
     });
@@ -100,5 +108,18 @@ export class ContactListComponent implements OnInit, AfterViewInit {
 
   getRecord(row: any) {
     console.log(row)
+  }
+
+  openContactDetails(row: any) {
+    const dialog = this.dialog.open(ContactDetailsComponent, {
+      width: '450px',
+      data: row
+    });
+  }
+
+  openCreateModal() {
+    const dialog = this.dialog.open(CreateUpdateDialogComponent, {
+      width: '450px'
+    });
   }
 }

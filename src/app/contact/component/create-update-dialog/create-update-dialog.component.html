@@ -1,0 +1,61 @@
+<div class="dialog-container" >
+  <h2>{{dialogTilte}}</h2>
+  <form *ngIf="!data" (ngSubmit)="onSubmit(createForm)" #createForm="ngForm">
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="Placeholder" id="firstName" name="firstName" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Placeholder" id="lastName" name="lastName" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Placeholder" id="birthDate" name="birthDate" ngModel
+               required>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Placeholder" id="address" name="address" ngModel>
+      </mat-form-field>
+
+      <div>
+        <button mat-raised-button color="primary" [disabled]="createForm.invalid" type="submit">Create</button>
+        <button mat-button (click)="dialogRef.close(false)" class="cancel-button">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <form *ngIf="data" (ngSubmit)="updateContact(updateForm)" #updateForm="ngForm">
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="Placeholder" id="firstName" name="firstName" [(ngModel)]="contactToBeUpdated.firstName" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Placeholder" id="lastName" name="lastName" [(ngModel)]="contactToBeUpdated.lastName" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Placeholder" id="birthDate" name="birthDate"
+               [(ngModel)]="contactToBeUpdated.birthDate" required>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Placeholder" id="address" name="address" [(ngModel)]="contactToBeUpdated.address">
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" [disabled]="updateForm.invalid" type="submit">Update</button>
+        <button mat-button (click)="dialogRef.close(false)" class="cancel-button">Cancel</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+

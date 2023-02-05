@@ -1,0 +1,25 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>Contact Informations</h2>
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>First Name</mat-label>
+      <input matInput value="{{data.firstName}}" type="text" disabled>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput value="{{data.lastName}}" type="text" disabled>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Birth Date</mat-label>
+      <input matInput value="{{data.birthDate}}" type="text" disabled>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Address</mat-label>
+      <textarea matInput value="{{data.address}}" disabled></textarea>
+    </mat-form-field>
+  </form>
+  <div mat-dialog-actions class="dialog-close-button">
+    <button mat-button (click)="dialogRef.close(false)" >Close</button>
+  </div>
+</div>

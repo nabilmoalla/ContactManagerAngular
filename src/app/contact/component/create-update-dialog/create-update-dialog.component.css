@@ -1,0 +1,11 @@
+.dialog-container {
+  margin: 20px;
+}
+
+.form-group {
+  display: inline-grid;
+}
+
+.cancel-button{
+  margin-left: 10px;
+}
