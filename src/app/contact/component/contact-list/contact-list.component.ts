@@ -9,6 +9,10 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {contactActionTypes} from "../../store/contact.actions";
+import {Update} from "@ngrx/entity";
+import {DatePipe} from "@angular/common";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-contact-list',
@@ -21,10 +25,19 @@ export class ContactListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate', 'address', 'actions'];
   dataSource: MatTableDataSource<Contact>;
 
+  contactToBeUpdated: Contact;
+
+  isUpdateActivated = false;
+
+  contactIdToDelete: number;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private contactService: ContactService, private store: Store<AppState>) {
+  constructor(private contactService: ContactService,
+              private store: Store<AppState>,
+              public datepipe: DatePipe,
+              public dialog: MatDialog) {
 
   }
 
@@ -49,11 +62,43 @@ export class ContactListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showUpdateForm(row: Contact) {
-
+  showUpdateForm(contact: Contact) {
+    this.contactToBeUpdated = {...contact};
+    this.isUpdateActivated = true;
   }
 
-  deleteCourse(contactId: number) {
+  updateContact(updateForm: any) {
+    console.log(updateForm.value)
+    updateForm.value.birthDate= this.datepipe.transform(updateForm.value.birthDate, 'yyyy-MM-dd')!
+    const update: Update<Contact> = {
+      id: this.contactToBeUpdated.id!.toString(),
+      changes: {
+        ...this.contactToBeUpdated,
+        ...updateForm.value
+      }
+    };
+
+    this.store.dispatch(contactActionTypes.updateContact({update}));
+
+    this.isUpdateActivated = false;
+  }
+
+  deleteContact(contactId: number) {
     this.store.dispatch(contactActionTypes.deleteContact({contactId}));
+  }
+
+  openDeleteDialog(contactId : number) {
+    const dialog = this.dialog.open(ConfirmDialogComponent, {
+      width: '450px'
+    });
+    dialog.afterClosed().subscribe(confirmDelete => {
+      if(confirmDelete){
+        this.deleteContact(contactId);
+      }
+    })
+  }
+
+  getRecord(row: any) {
+    console.log(row)
   }
 }

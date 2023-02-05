@@ -1,0 +1,13 @@
+<div>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a mat-tab-link routerLink="contacts" routerLinkActive="active-link">List Contacts</a>
+    <a mat-tab-link routerLink="create-contact" routerLinkActive="active-link">Create Contact</a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+  <div style="margin-top: 20px;">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+

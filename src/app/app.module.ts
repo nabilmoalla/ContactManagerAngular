@@ -18,25 +18,31 @@ import {RouterModule} from "@angular/router";
 import {EffectsModule} from "@ngrx/effects";
 import {ContactModule} from "./contact/contact.module";
 import {HttpClientModule} from "@angular/common/http";
+import {MatTabsModule} from "@angular/material/tabs";
+import { HomeComponent } from './home/home/home.component';
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
-  imports: [
-    BrowserModule,
-    ContactModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({maxAge: 25}),
-    MatToolbarModule,
-    MatIconModule
-  ],
+    imports: [
+        BrowserModule,
+        ContactModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        StoreModule.forRoot(reducers, {metaReducers}),
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({maxAge: 25}),
+        MatToolbarModule,
+        MatIconModule,
+        MatTabsModule,
+        MatNativeDateModule
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

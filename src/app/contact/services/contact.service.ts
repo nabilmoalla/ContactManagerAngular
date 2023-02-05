@@ -13,11 +13,11 @@ export class ContactService {
   }
 
   getAllContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>('http://localhost:9000/contact-manager/api/contacts');
+    return this.http.get<Contact[]>('/api/contacts');
   }
 
   createContact(contact: Contact): Observable<Contact> {
-    return this.http.post<Contact>('http://localhost:9000/contact-manager/api/contacts', contact);
+    return this.http.post<Contact>('/api/contacts', contact);
   }
 
   deleteContact(contactId: number): Observable<any> {
@@ -25,10 +25,10 @@ export class ContactService {
   }
 
   getOneContact(contactId: number): Observable<Contact> {
-    return this.http.get<Contact>('http://localhost:9000/contact-manager/api/contacts/' + contactId);
+    return this.http.get<Contact>('/api/contacts/' + contactId);
   }
 
   updateContact(contactId: string | number, changes: Partial<Contact>): Observable<any> {
-    return this.http.put('http://localhost:9000/contact-manager/api/contacts/' + contactId, changes);
+    return this.http.put('/api/contacts/' + contactId, changes);
   }
 }

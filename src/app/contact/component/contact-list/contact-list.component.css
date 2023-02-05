@@ -23,3 +23,15 @@ td, th {
   display: flex;
 }
 
+.form-group {
+  display: inline-grid;
+}
+
+.element-row {
+  cursor: pointer;
+}
+
+tr.element-row:hover {
+  background: whitesmoke;
+}
+
