@@ -3,7 +3,10 @@
 <div class="filter-header">
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filterValue" placeholder="Ex. Mia" #input>
+    <button *ngIf="filterValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
 </div>
   <div class="add-button-header">

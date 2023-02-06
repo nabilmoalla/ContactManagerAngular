@@ -23,13 +23,17 @@ import {CreateUpdateDialogComponent} from "../create-update-dialog/create-update
 })
 export class ContactListComponent implements OnInit, AfterViewInit {
 
-  contacts$: Observable<Contact[]> | undefined;
+  contacts$: Observable<Contact[]>;
+
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate', 'address', 'actions'];
+
   dataSource: MatTableDataSource<Contact>;
 
   contactToBeUpdated: Contact;
 
   contactIdToDelete: number;
+
+  filterValue: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,9 +60,17 @@ export class ContactListComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  clearFilter(){
+    this.filterValue = ""
+    this.dataSource.filter = this.filterValue;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
