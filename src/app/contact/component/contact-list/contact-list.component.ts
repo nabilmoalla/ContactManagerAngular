@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../store/reducers";
 import {ContactService} from "../../services/contact.service";
@@ -29,8 +29,6 @@ export class ContactListComponent implements OnInit, AfterViewInit {
 
   contactToBeUpdated: Contact;
 
-  isUpdateActivated = false;
-
   contactIdToDelete: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -47,6 +45,8 @@ export class ContactListComponent implements OnInit, AfterViewInit {
     this.contacts$ = this.store.select(getAllContacts);
     this.contacts$.subscribe(data =>{
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 
@@ -67,26 +67,14 @@ export class ContactListComponent implements OnInit, AfterViewInit {
   openUpdateDialog(event: MouseEvent, contact: Contact) {
     event.preventDefault();
     event.stopPropagation();
-    this.dialog.open(CreateUpdateDialogComponent, {
+    const dialog = this.dialog.open(CreateUpdateDialogComponent, {
       width: '450px',
       data: contact
     });
-  }
-
-  updateContact(updateForm: any) {
-    console.log(updateForm.value)
-    updateForm.value.birthDate= this.datepipe.transform(updateForm.value.birthDate, 'yyyy-MM-dd')!
-    const update: Update<Contact> = {
-      id: this.contactToBeUpdated.id!.toString(),
-      changes: {
-        ...this.contactToBeUpdated,
-        ...updateForm.value
-      }
-    };
-
-    this.store.dispatch(contactActionTypes.updateContact({update}));
-
-    this.isUpdateActivated = false;
+    dialog.afterClosed().subscribe(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
   }
 
   deleteContact(contactId: number) {
@@ -102,24 +90,24 @@ export class ContactListComponent implements OnInit, AfterViewInit {
     dialog.afterClosed().subscribe(confirmDelete => {
       if(confirmDelete){
         this.deleteContact(contactId);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     })
   }
 
-  getRecord(row: any) {
-    console.log(row)
-  }
-
   openContactDetails(row: any) {
-    const dialog = this.dialog.open(ContactDetailsComponent, {
+    this.dialog.open(ContactDetailsComponent, {
       width: '450px',
       data: row
     });
   }
 
   openCreateModal() {
-    const dialog = this.dialog.open(CreateUpdateDialogComponent, {
+    this.dialog.open(CreateUpdateDialogComponent, {
       width: '450px'
     });
   }
+
+
 }

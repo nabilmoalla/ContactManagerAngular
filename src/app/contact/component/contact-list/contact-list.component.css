@@ -8,7 +8,7 @@ table {
 }
 
 td, th {
-  width: 25%;
+  width: 12%;
 }
 .example-button-row {
   display: flex;
@@ -48,6 +48,10 @@ tr.element-row:hover {
 .button-header {
   height: 54px;
   margin-left: 10px;
+}
+
+.mat-column-address {
+  flex: 0 0 50%;
 }
 
 
