@@ -19,8 +19,7 @@ export class ContactEffects {
   createContact$ = createEffect(() =>
       this.actions$.pipe(
         ofType(contactActionTypes.createContact),
-        concatMap((action) => this.contactService.createContact(action.contact)),
-        tap(() => this.router.navigateByUrl('/contacts'))
+        concatMap((action) => this.contactService.createContact(action.contact))
       ),
     {dispatch: false}
   );

@@ -5,7 +5,7 @@ import {AppState} from "../../../store/reducers";
 import {DatePipe} from "@angular/common";
 import {NgForm} from "@angular/forms";
 import {Contact} from "../../model/contact.model";
-import {contactActionTypes, createContact, loadContacts} from "../../store/contact.actions";
+import {contactActionTypes} from "../../store/contact.actions";
 import {Update} from "@ngrx/entity";
 
 @Component({
@@ -45,8 +45,8 @@ export class CreateUpdateDialogComponent {
       birthDate: this.datepipe.transform(submittedForm.value.birthDate, 'yyyy-MM-dd')!,
       address: submittedForm.value.address
     };
-    this.store.dispatch(createContact({contact}));
-    this.store.dispatch(loadContacts());
+    this.store.dispatch(contactActionTypes.createContact({contact}));
+    this.store.dispatch(contactActionTypes.loadContacts());
     this.dialogRef.close()
   }
 
